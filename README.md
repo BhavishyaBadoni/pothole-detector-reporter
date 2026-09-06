@@ -11,8 +11,8 @@
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML%20Engine-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/joshi-akash/pothole-detector-reporter?style=flat-square)](https://github.com/joshi-akash/pothole-detector-reporter/issues)
-[![Stars](https://img.shields.io/github/stars/joshi-akash/pothole-detector-reporter?style=flat-square)](https://github.com/joshi-akash/pothole-detector-reporter/stargazers)
+[![Issues](https://img.shields.io/github/issues/BhavishyaBadoni/Road_Anamoly_Detection?style=flat-square)](https://github.com/BhavishyaBadoni/Road_Anamoly_Detection/issues)
+[![Stars](https://img.shields.io/github/stars/BhavishyaBadoni/Road_Anamoly_Detection?style=flat-square)](https://github.com/BhavishyaBadoni/Road_Anamoly_Detection/stargazers)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 </div>
@@ -198,7 +198,7 @@ flutter run
 ## 🗂️ Repository Structure
 
 ```
-pothole-detector-reporter/
+Road_Anamoly_Detection/
 ├── apk/                  # 📦 Pre-compiled Android APK (main branch)
 ├── cloud_backend/        # ☁️ FastAPI server, ML models, spatial clustering jobs
 ├── front/                # 🖥️ Admin dashboard (HTML/JS + Leaflet.js)
