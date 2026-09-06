@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+geoalchemy2
+asyncpg
+scikit-learn
+pandas
+joblib
+shapely
+greenlet
+psycopg2-binary

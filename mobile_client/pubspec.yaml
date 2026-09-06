@@ -1,0 +1,30 @@
+name: mobile_client
+description: Flutter Edge Client for Road Anomaly System
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sensors_plus: ^7.1.0
+  geolocator: ^14.0.3
+  http: ^1.1.0
+  vibration: ^3.2.0
+  weather: ^3.2.1
+  sqflite: ^2.4.3
+  path: ^1.8.3
+  shared_preferences: ^2.2.3
+  flutter_local_notifications: ^17.1.1
+  permission_handler: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true

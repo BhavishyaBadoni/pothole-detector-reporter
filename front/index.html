@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Municipal Road Hazard Spatial Monitoring & Maintenance Dashboard - Dehradun Municipal Corporation">
+  <title>Dehradun Municipal Corporation - Road Hazard Spatial Dashboard</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fullscreen Map Canvas -->
+  <div id="map" aria-label="Road Hazard Spatial Map"></div>
+
+  <!-- Top Floating Header & Command HUD -->
+  <header class="dashboard-header" id="dashboardHeader">
+    <div class="brand-section">
+      <div class="brand-badge">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="title-row">
+          <h1>Dehradun Road Hazard Command Center</h1>
+          <span class="region-badge">Dehradun Zone 1</span>
+        </div>
+        <p class="subtitle">Municipal Spatial Intelligence &amp; AI Pothole Detection Feed</p>
+      </div>
+    </div>
+
+    <!-- Metrics Bar -->
+    <div class="metrics-container">
+      <div class="metric-card" id="metricActiveUsers">
+        <div class="metric-indicator purple-glow"></div>
+        <div class="metric-data">
+          <span class="metric-label">Active Users</span>
+          <span class="metric-value" id="countActiveUsers">0</span>
+        </div>
+      </div>
+      <div class="metric-card" id="metricPotholes">
+        <div class="metric-indicator red-glow"></div>
+        <div class="metric-data">
+          <span class="metric-label">Active Potholes</span>
+          <span class="metric-value" id="countPotholes">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metricSpeedBreakers">
+        <div class="metric-indicator orange-glow"></div>
+        <div class="metric-data">
+          <span class="metric-label">Speed Breakers</span>
+          <span class="metric-value" id="countSpeedBreakers">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metricTotalUnrepaired">
+        <div class="metric-indicator blue-glow"></div>
+        <div class="metric-data">
+          <span class="metric-label">Total Unrepaired</span>
+          <span class="metric-value" id="countTotal">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metricRepairedSession">
+        <div class="metric-indicator green-glow"></div>
+        <div class="metric-data">
+          <span class="metric-label">Repaired Session</span>
+          <span class="metric-value" id="countRepaired">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Status & Action Center -->
+    <div class="status-center">
+      <div class="live-pill" id="pollingStatusPill">
+        <span class="live-pulse" id="livePulseDot"></span>
+        <span class="status-text" id="pollingStatusText">Live (10s Polling)</span>
+      </div>
+      <button class="icon-button" id="btnRefreshNow" title="Fetch latest data immediately">
+        <svg class="spin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+        </svg>
+      </button>
+      <button class="icon-button" id="btnRecenterMap" title="Recenter to Dehradun">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Legend & Info Box -->
+  <aside class="map-overlay-card legend-card" id="mapLegend">
+    <div class="card-header">
+      <span class="legend-title">Hazard Taxonomy</span>
+      <span class="legend-filter-tag">Filter: Unrepaired Only</span>
+    </div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <span class="marker-sample red-marker"></span>
+        <div class="legend-text">
+          <strong>Pothole (Small / Big)</strong>
+          <small>Critical repair priority</small>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="marker-sample orange-marker"></span>
+        <div class="legend-text">
+          <strong>Speed Breaker</strong>
+          <small>Traffic calming structure</small>
+        </div>
+      </div>
+    </div>
+    <div class="legend-footer">
+      <div class="coordinates-display" id="cursorCoordinates">
+        <span>Lat: 30.3165</span> | <span>Lng: 78.0322</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Dashboard Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>

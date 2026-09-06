@@ -1,0 +1,24 @@
+# Python / Backend
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+severity_model.pkl
+apk/*.apk
+
+# Flutter / Mobile Client
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.DS_Store
